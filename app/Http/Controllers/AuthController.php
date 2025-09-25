@@ -38,7 +38,7 @@ class AuthController extends Controller
             'password'=>'required|min:6'
         ]);
 
-        if(Auth::attempt($credentials)){
+        if(Auth::attempt($credentials, $request->remember)){
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
@@ -47,4 +47,11 @@ class AuthController extends Controller
             'email'=>'Предоставленные учетные данные не соответствуют нашим записям.',
         ])->onlyInput('email');
     }    
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return  redirect()->route('login');
+    }
 }
