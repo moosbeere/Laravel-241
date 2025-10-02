@@ -12,6 +12,7 @@
     <h5 class="card-title text-center ">{{$article->title}}</h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">{{$article->date_public}}</h6>
     <p class="card-text">{{$article->text}}</p>
+    @can('create')
     <div class="btn-toolbar mt-3" role="toolbar">
     <a href="/article/{{$article->id}}/edit" class="btn btn-primary me-3">Edit article</a>
     <form action="/article/{{$article->id}}" method="post">
@@ -20,6 +21,7 @@
         <button type="submit" class="btn btn-warning me-3">Delete article</button>
     </form>
     </div>    
+    @endcan
   </div>
 </div>
 
@@ -43,9 +45,9 @@
   <div class="card-body">
     <p class="card-text">{{$comment->text}}</p>
     <div class="btn-toolbar mt-3" role="toolbar">
-      @can('comment', $comment)
-    <a href="/comment/edit/{{$comment->id}}" class="btn btn-primary me-3">Edit comment</a>
-    <a href="/comment/delete/{{$comment->id}}" class="btn btn-primary me-3">Delete comment</a>
+    @can('comment', $comment)
+      <a href="/comment/edit/{{$comment->id}}" class="btn btn-primary me-3">Edit comment</a>
+      <a href="/comment/delete/{{$comment->id}}" class="btn btn-primary me-3">Delete comment</a>
     @endcan
     </div>    
   </div>
